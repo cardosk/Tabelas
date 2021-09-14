@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>Teste</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<fieldset id="buildyourform">
+  <legend>test</legend>
+</fieldset>
+<input type="button" value="Add a field" class="add" id="add" />
+<input type="button" value="Generate" class="add" id="preview" />&nbsp;
+<div id='console'></div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+  $("#add").click(function() {
+    var intId = $("#buildyourform div").length + 1;
+    var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
+    var name = $("<input type=\"text\" \" placeholder=\"Name of Neighborhood\"class=\"name fieldname\" />");
+    var url = $("<input type=\"text\" placeholder=\"Paste here the URL of the Image\"class=\"url fieldname\" />");
+
+
+    var removeButton = $("<input type=\"button\"class=\"remove\" value=\"Remove\" />");
+    removeButton.click(function() {
+      $(this).parent().remove();
+    });
+    fieldWrapper.append(name);
+    fieldWrapper.append(url);
+
+    fieldWrapper.append(removeButton);
+    $("#buildyourform").append(fieldWrapper);
+  });
+  
+  $('#preview').click(function(){
+  
+    var o = {"items":[]}; // create an object with key items to hold array
+    
+    $('.fieldwrapper').each(function(){ // loop in to the input's wrapper
+      var obj = {
+        url :  $(this).find('.url').val(), // place the url in a new object
+        name : $(this).find('.name').val() // place the name in a new object
+      };
+        o.items.push(obj); // push in the "o" object created
+    });
+    
+    $('#console').text(JSON.stringify(o)); // strigify to show
+    
+  });
+  
+
+});
+</script>
